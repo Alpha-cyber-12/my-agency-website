@@ -17,7 +17,7 @@ import {
   Info,
 } from 'lucide-react';
 
-// Agency Data Configuration
+// -------------------- Agency Data Configuration --------------------
 const agencyData = {
   name: 'Digital Forge',
   tagline: 'Crafting Your Digital Legacy',
@@ -26,28 +26,28 @@ const agencyData = {
   services: [
     {
       id: 1,
-      icon: <Search className="w-12 h-12 text-blue-400" />,
+      icon: 'Search',
       title: 'Strategic SEO',
       description:
         'Boost your visibility and rank higher with expert SEO and compelling content strategies.',
     },
     {
       id: 2,
-      icon: <Megaphone className="w-12 h-12 text-purple-400" />,
+      icon: 'Megaphone',
       title: 'Social Media Management',
       description:
         'Engage your community and grow your brand with bespoke content and proactive management.',
     },
     {
       id: 3,
-      icon: <ChartBar className="w-12 h-12 text-green-400" />,
+      icon: 'ChartBar',
       title: 'Advanced Analytics',
       description:
         'Unlock insights to understand behavior and optimize campaigns for measurable ROI.',
     },
     {
       id: 4,
-      icon: <Code className="w-12 h-12 text-red-400" />,
+      icon: 'Code',
       title: 'Bespoke Web Development',
       description:
         'Fast, responsive, and secure websites that tell your story and convert.',
@@ -66,7 +66,7 @@ const agencyData = {
         'A complete brand refresh and digital strategy for a global e-commerce client, resulting in a 250% increase in online sales.',
       imageUrl: 'https://placehold.co/800x600/1e293b/d1d5db?text=Project+1',
       industry: 'E-Commerce',
-      metrics: '+250% Sales, <1.8s LCP, 30% More Traffic'
+      metrics: '+250% Sales, <1.8s LCP, 30% More Traffic',
     },
     {
       id: 2,
@@ -75,7 +75,7 @@ const agencyData = {
         'A targeted multi-channel campaign for a B2B SaaS company that delivered a 40% growth in qualified leads and boosted brand awareness.',
       imageUrl: 'https://placehold.co/800x600/1e293b/d1d5db?text=Project+2',
       industry: 'SaaS',
-      metrics: '+40% MQLs, <2.0s LCP, 2x Lead-to-Sale Conversion'
+      metrics: '+40% MQLs, <2.0s LCP, 2x Lead-to-Sale Conversion',
     },
     {
       id: 3,
@@ -84,7 +84,7 @@ const agencyData = {
         'Developed and executed a successful launch strategy for a new wellness app, gaining over 100K downloads in the first month.',
       imageUrl: 'https://placehold.co/800x600/1e293b/d1d5db?text=Project+3',
       industry: 'Fintech',
-      metrics: '100K Downloads, 95% User Retention, <0.1 CLS'
+      metrics: '100K Downloads, 95% User Retention, <0.1 CLS',
     },
   ],
   pricing: [
@@ -124,7 +124,7 @@ const agencyData = {
         'Digital Forge completely transformed our online presence. Their data-driven approach led to a 300% increase in leads within the first quarter.',
       name: 'Alex Johnson',
       company: 'Innovate Corp',
-      industry: 'Fintech'
+      industry: 'Fintech',
     },
     {
       id: 2,
@@ -132,7 +132,7 @@ const agencyData = {
         'They understood our vision and executed a social strategy that doubled our engagement in two months.',
       name: 'Sarah Peterson',
       company: 'Growth Hub',
-      industry: 'SaaS'
+      industry: 'SaaS',
     },
     {
       id: 3,
@@ -140,7 +140,7 @@ const agencyData = {
         'Professional and creative. Web development was flawless and communication was top-notch.',
       name: 'Michael Lee',
       company: 'Web Solutions',
-      industry: 'E-Commerce'
+      industry: 'E-Commerce',
     },
   ],
   faq: [
@@ -165,61 +165,69 @@ const agencyData = {
   ],
   contact: {
     email: 'contact@digitalforge.com',
-    phone: '+1 (555) 123-4567',
+    phone: '+1-555-123-4567',
     address: '123 Digital Drive, Suite 400, Tech City, ST 12345',
   },
 };
 
-// JSON-LD for SEO
+// Normalize phone for JSON-LD
+const normalizePhoneForStructuredData = (phone) => phone.replace(/[()\s-]/g, '');
+
+// -------------------- JSON-LD for SEO --------------------
 const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
+  '@context': 'https://schema.org',
+  '@graph': [
     {
-      "@type": "Organization",
-      "name": agencyData.name,
-      "url": "https://digitalforge.com",
-      "logo": "https://digitalforge.com/logo.png",
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": agencyData.contact.phone,
-        "contactType": "customer service"
-      }
+      '@type': 'Organization',
+      name: agencyData.name,
+      url: 'https://digitalforge.com',
+      logo: 'https://digitalforge.com/logo.png',
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: normalizePhoneForStructuredData(agencyData.contact.phone),
+        contactType: 'customer service',
+      },
     },
     {
-      "@type": "WebSite",
-      "name": "Digital Forge",
-      "url": "https://digitalforge.com",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://digitalforge.com/?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
+      '@type': 'WebSite',
+      name: 'Digital Forge',
+      url: 'https://digitalforge.com',
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: 'https://digitalforge.com/?q={search_term_string}',
+        'query-input': 'required name=search_term_string',
+      },
     },
     {
-      "@type": "FAQPage",
-      "mainEntity": agencyData.faq.map(item => ({
-        "@type": "Question",
-        "name": item.question,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.answer
-        }
-      }))
-    }
-  ]
+      '@type': 'FAQPage',
+      mainEntity: agencyData.faq.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
+        },
+      })),
+    },
+  ],
 };
 
-// Components
+// -------------------- Utility: Icon resolver --------------------
+const IconResolver = ({ name, className = 'w-12 h-12 text-blue-400' }) => {
+  const icons = { Sparkles, Megaphone, ChartBar, Search, Code };
+  const Icon = icons[name] || Search;
+  return <Icon className={className} />;
+};
+
+// -------------------- Small components --------------------
 const FAQItem = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const id = `faq-${question.replace(/\s+/g, '-').toLowerCase()}`;
+  const id = `faq-${question.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`;
   const contentRef = useRef(null);
 
   useEffect(() => {
     const handleEscape = (e) => {
-      if (e.key === 'Escape' && isOpen) {
-        setIsOpen(false);
-      }
+      if (e.key === 'Escape' && isOpen) setIsOpen(false);
     };
     document.addEventListener('keydown', handleEscape);
     return () => document.removeEventListener('keydown', handleEscape);
@@ -230,21 +238,23 @@ const FAQItem = ({ question, answer }) => {
       <h3 className="text-lg font-semibold">
         <button
           className="flex justify-between items-center w-full text-left p-2 -m-2 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => setIsOpen((s) => !s)}
           aria-expanded={isOpen}
           aria-controls={id}
         >
           <span>{question}</span>
           <ChevronDown
             className={`w-5 h-5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+            aria-hidden="true"
           />
         </button>
       </h3>
+
       <div
         id={id}
         ref={contentRef}
         className="mt-2 transition-all duration-300 overflow-hidden"
-        style={{ maxHeight: isOpen ? `${contentRef.current?.scrollHeight}px` : '0px' }}
+        style={{ maxHeight: isOpen ? `${contentRef.current?.scrollHeight || 300}px` : '0px' }}
         aria-hidden={!isOpen}
       >
         <p className="text-gray-400 pl-6 leading-relaxed">{answer}</p>
@@ -253,15 +263,13 @@ const FAQItem = ({ question, answer }) => {
   );
 };
 
-const MetricChip = ({ metric, color }) => {
-  return (
-    <span
-      className={`inline-block px-3 py-1 text-xs font-semibold rounded-full border ${color} absolute top-4 right-4 animate-fade-in-up`}
-    >
-      {metric}
-    </span>
-  );
-};
+const MetricChip = ({ metric }) => (
+  <span
+    className={`inline-block px-3 py-1 text-xs font-semibold rounded-full border text-green-300 bg-green-500/10 absolute top-4 right-4`}
+  >
+    {metric}
+  </span>
+);
 
 const TrustBadges = () => (
   <div className="flex flex-wrap justify-center gap-4 mt-6">
@@ -288,58 +296,71 @@ const TrustBadges = () => (
   </div>
 );
 
-const MobileMenu = ({ isNavOpen, setIsNavOpen, navRef }) => {
+// -------------------- Mobile Menu --------------------
+const MobileMenu = ({ isNavOpen, setIsNavOpen, navRef, toggleButtonRef }) => {
   const firstFocusableElement = useRef(null);
   const lastFocusableElement = useRef(null);
 
-  useEffect(() => {
-    if (isNavOpen) {
-      const focusableElements = navRef.current.querySelectorAll(
-        'a[href], button, [tabindex]:not([tabindex="-1"])'
-      );
-      firstFocusableElement.current = focusableElements[0];
-      lastFocusableElement.current = focusableElements[focusableElements.length - 1];
-      firstFocusableElement.current?.focus();
+  const handleClose = useCallback(() => {
+    setIsNavOpen(false);
+    toggleButtonRef.current?.focus();
+  }, [setIsNavOpen, toggleButtonRef]);
 
-      const handleKeyDown = (e) => {
-        if (e.key === 'Tab') {
-          if (e.shiftKey) {
-            if (document.activeElement === firstFocusableElement.current) {
-              e.preventDefault();
-              lastFocusableElement.current.focus();
-            }
-          } else {
-            if (document.activeElement === lastFocusableElement.current) {
-              e.preventDefault();
-              firstFocusableElement.current.focus();
-            }
+  useEffect(() => {
+    if (!isNavOpen) return;
+
+    const node = navRef.current;
+    if (!node) return;
+
+    const focusableElements = node.querySelectorAll('a[href], button, [tabindex]:not([tabindex="-1"])');
+    firstFocusableElement.current = focusableElements[0];
+    lastFocusableElement.current = focusableElements[focusableElements.length - 1];
+    firstFocusableElement.current?.focus();
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Tab') {
+        if (e.shiftKey) {
+          if (document.activeElement === firstFocusableElement.current) {
+            e.preventDefault();
+            lastFocusableElement.current?.focus();
+          }
+        } else {
+          if (document.activeElement === lastFocusableElement.current) {
+            e.preventDefault();
+            firstFocusableElement.current?.focus();
           }
         }
-        if (e.key === 'Escape') {
-          setIsNavOpen(false);
-        }
-      };
+      }
+      if (e.key === 'Escape') handleClose();
+    };
 
-      document.addEventListener('keydown', handleKeyDown);
-      return () => document.removeEventListener('keydown', handleKeyDown);
-    }
-  }, [isNavOpen, setIsNavOpen, navRef]);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isNavOpen, navRef, handleClose]);
 
   return (
     <div
       ref={navRef}
-      className={`md:hidden absolute top-full left-0 w-full bg-[#14161A] bg-opacity-90 backdrop-blur-md transition-all duration-300 ease-in-out transform ${
-        isNavOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+      className={`md:hidden fixed top-0 left-0 w-full h-full bg-gray-950 transition-all duration-300 ease-in-out transform ${
+        isNavOpen ? 'translate-x-0 opacity-100 z-[60]' : '-translate-x-full opacity-0 -z-10'
       }`}
       id="mobile-menu"
+      aria-hidden={!isNavOpen}
     >
-      <ul className="flex flex-col items-center py-4 space-y-4" role="menu" aria-label="Mobile">
+      <ul className="flex flex-col items-center py-12 space-y-4" role="menu" aria-label="Mobile">
+        <button
+          onClick={handleClose}
+          className="absolute top-4 right-4 text-gray-300 p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded-md"
+          aria-label="Close menu"
+        >
+          <X size={28} />
+        </button>
         {['services', 'portfolio', 'pricing', 'faq', 'contact'].map((section) => (
           <li key={section}>
             <a
               href={`#${section}`}
               className="block text-gray-300 hover:text-blue-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-md p-2 -m-2"
-              onClick={() => setIsNavOpen(false)}
+              onClick={handleClose}
               role="menuitem"
             >
               {section.charAt(0).toUpperCase() + section.slice(1)}
@@ -350,7 +371,7 @@ const MobileMenu = ({ isNavOpen, setIsNavOpen, navRef }) => {
           <a
             href="#contact"
             className="px-5 py-2 rounded-full font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-            onClick={() => setIsNavOpen(false)}
+            onClick={handleClose}
             role="menuitem"
           >
             Get a Quote
@@ -361,10 +382,12 @@ const MobileMenu = ({ isNavOpen, setIsNavOpen, navRef }) => {
   );
 };
 
+// -------------------- Header --------------------
 const Header = ({ isNavOpen, setIsNavOpen }) => {
   const mobileNavRef = useRef(null);
+  const toggleButtonRef = useRef(null);
   return (
-    <header className="sticky top-0 z-50 bg-[#14161A] bg-opacity-70 backdrop-blur-md p-4" role="banner">
+    <header className="sticky top-0 z-50 bg-gray-950 bg-opacity-70 backdrop-blur-md p-4" role="banner">
       <nav className="flex items-center justify-between max-w-7xl mx-auto font-poppins" aria-label="Primary">
         <a
           href="#hero"
@@ -375,36 +398,54 @@ const Header = ({ isNavOpen, setIsNavOpen }) => {
         </a>
 
         <ul className="hidden md:flex items-center space-x-8">
-          <li><a href="#services" className="text-gray-300 hover:text-blue-400 transition-colors">Services</a></li>
-          <li><a href="#portfolio" className="text-gray-300 hover:text-blue-400 transition-colors">Case Studies</a></li>
-          <li><a href="#pricing" className="text-gray-300 hover:text-blue-400 transition-colors">Pricing</a></li>
-          <li><a href="#faq" className="text-gray-300 hover:text-blue-400 transition-colors">FAQ</a></li>
+          <li>
+            <a href="#services" className="text-gray-300 hover:text-blue-400 transition-colors">
+              Services
+            </a>
+          </li>
+          <li>
+            <a href="#portfolio" className="text-gray-300 hover:text-blue-400 transition-colors">
+              Case Studies
+            </a>
+          </li>
+          <li>
+            <a href="#pricing" className="text-gray-300 hover:text-blue-400 transition-colors">
+              Pricing
+            </a>
+          </li>
+          <li>
+            <a href="#faq" className="text-gray-300 hover:text-blue-400 transition-colors">
+              FAQ
+            </a>
+          </li>
           <li>
             <a
               href="#contact"
               className="group relative overflow-hidden px-5 py-2 rounded-full font-semibold text-white bg-blue-600 transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/50"
             >
-              <span className="absolute inset-0 bg-blue-500 transition-transform duration-200 group-hover:scale-125"></span>
+              <span className="absolute inset-0 bg-blue-500 transition-transform duration-200 group-hover:scale-125" />
               <span className="relative z-10">Get a Quote</span>
             </a>
           </li>
         </ul>
 
         <button
+          ref={toggleButtonRef}
           className="md:hidden text-gray-300 rounded-md p-2 -m-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
           aria-label="Toggle menu"
           aria-expanded={isNavOpen}
-          onClick={() => setIsNavOpen((v) => !v)}
+          onClick={() => setIsNavOpen((s) => !s)}
         >
           {isNavOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </nav>
-      <MobileMenu isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} navRef={mobileNavRef} />
+      <MobileMenu isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} navRef={mobileNavRef} toggleButtonRef={toggleButtonRef} />
     </header>
   );
 };
 
-const Hero = ({ segment, testimonial, isLottieSupported }) => (
+// -------------------- Hero --------------------
+const Hero = ({ segment, testimonial }) => (
   <section id="hero" className="relative flex flex-col items-center justify-center min-h-[70vh] text-center p-8 font-poppins">
     <h1
       className="text-5xl md:text-7xl font-extrabold leading-tight tracking-tighter animate-fade-in-down bg-gradient-to-r from-blue-400 to-purple-600 text-transparent bg-clip-text"
@@ -427,7 +468,7 @@ const Hero = ({ segment, testimonial, isLottieSupported }) => (
         href="#contact"
         className="group relative inline-flex items-center overflow-hidden px-8 py-3 rounded-full font-bold text-lg text-white bg-blue-600 shadow-xl transition-all duration-200 hover:shadow-blue-500/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
       >
-        <span className="absolute inset-0 w-full h-full bg-blue-500 transition-transform duration-200 group-hover:scale-125"></span>
+        <span className="absolute inset-0 w-full h-full bg-blue-500 transition-transform duration-200 group-hover:scale-125" />
         <span className="relative z-10 flex items-center space-x-2">
           <span>Get Your Free Strategy Session</span>
           <ArrowRight className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
@@ -449,6 +490,7 @@ const Hero = ({ segment, testimonial, isLottieSupported }) => (
   </section>
 );
 
+// -------------------- Other Sections (Outcomes / Services / CaseStudies / Pricing / Testimonials / Contact / Footer) --------------------
 const Outcomes = () => (
   <section className="py-16 px-8">
     <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-6">
@@ -479,7 +521,7 @@ const Services = () => (
             className="group bg-[#14161A] backdrop-blur-lg rounded-2xl p-6 border border-gray-700/50 text-center transition-all duration-200 hover:shadow-2xl hover:bg-white/10 hover:border-white/30"
           >
             <div className="flex justify-center mb-4 transition-transform duration-200 group-hover:scale-110">
-              {service.icon}
+              <IconResolver name={service.icon} />
             </div>
             <h3 className="text-xl font-semibold mb-2 leading-tight">{service.title}</h3>
             <p className="text-gray-300 leading-relaxed">{service.description}</p>
@@ -498,10 +540,7 @@ const CaseStudies = ({ orderedPortfolio }) => (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {orderedPortfolio.map((project) => (
           <article key={project.id} className="relative bg-[#14161A] border border-gray-700/50 rounded-2xl overflow-hidden">
-            <MetricChip
-              metric={project.metrics}
-              color="text-green-300 border-green-500/40 bg-green-500/20"
-            />
+            <MetricChip metric={project.metrics} />
             <img
               src={project.imageUrl}
               alt={project.title}
@@ -618,6 +657,7 @@ const Testimonials = () => (
   </section>
 );
 
+// -------------------- Contact --------------------
 const Contact = ({ formData, handleInputChange, handleFormSubmit, formStatus, validationErrors, wordCount }) => (
   <section id="contact" className="py-20 px-8">
     <div className="max-w-4xl mx-auto text-center font-poppins">
@@ -672,18 +712,14 @@ const Contact = ({ formData, handleInputChange, handleFormSubmit, formStatus, va
               className={`w-full px-4 py-3 rounded-xl bg-gray-800 text-white border ${validationErrors.name ? 'border-red-500' : 'border-gray-700'} focus:outline-none focus:ring-2 focus:ring-blue-500`}
               required
               autoComplete="name"
-              autoCapitalize="words"
             />
             {validationErrors.name && (
-              <p className="mt-1 text-sm text-red-400 text-left">
-                {validationErrors.name}
-              </p>
+              <p className="mt-1 text-sm text-red-400 text-left">{validationErrors.name}</p>
             )}
           </div>
+
           <div>
-            <label htmlFor="email" className="sr-only">
-              Email
-            </label>
+            <label htmlFor="email" className="sr-only">Email</label>
             <input
               type="email"
               name="email"
@@ -697,15 +733,30 @@ const Contact = ({ formData, handleInputChange, handleFormSubmit, formStatus, va
               inputMode="email"
             />
             {validationErrors.email && (
-              <p className="mt-1 text-sm text-red-400 text-left">
-                {validationErrors.email}
-              </p>
+              <p className="mt-1 text-sm text-red-400 text-left">{validationErrors.email}</p>
             )}
           </div>
+
           <div>
-            <label htmlFor="message" className="sr-only">
-              Message
-            </label>
+            <label htmlFor="phone" className="sr-only">Your No</label>
+            <input
+              type="tel"
+              name="phone"
+              id="phone"
+              value={formData.phone}
+              onChange={handleInputChange}
+              placeholder="Your No (10 digits)"
+              className={`w-full px-4 py-3 rounded-xl bg-gray-800 text-white border ${validationErrors.phone ? 'border-red-500' : 'border-gray-700'} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+              required
+              autoComplete="tel"
+            />
+            {validationErrors.phone && (
+              <p className="mt-1 text-sm text-red-400 text-left">{validationErrors.phone}</p>
+            )}
+          </div>
+
+          <div>
+            <label htmlFor="message" className="sr-only">Message</label>
             <textarea
               name="message"
               id="message"
@@ -715,28 +766,30 @@ const Contact = ({ formData, handleInputChange, handleFormSubmit, formStatus, va
               placeholder="Your Message (max 50 words)"
               className="w-full px-4 py-3 rounded-xl bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
-            ></textarea>
-            <p className={`mt-1 text-right text-sm ${wordCount > 50 ? 'text-red-400' : 'text-gray-400'}`}>
-              {wordCount} / 50 words
-            </p>
+            />
+            <p className={`mt-1 text-right text-sm ${wordCount > 50 ? 'text-red-400' : 'text-gray-400'}`}>{wordCount} / 50 words</p>
           </div>
+
           <button
             type="submit"
             className="w-full relative inline-flex items-center justify-center overflow-hidden px-8 py-4 rounded-full font-bold text-white bg-purple-600 shadow-lg transition-all duration-200 hover:bg-purple-500 hover:shadow-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-400 disabled:opacity-50 disabled:cursor-not-allowed"
-            disabled={formStatus === 'success' || !!validationErrors.name || !!validationErrors.email || wordCount > 50}
+            disabled={formStatus === 'success' || !!validationErrors.name || !!validationErrors.email || !!validationErrors.phone || wordCount > 50}
           >
             <span className="relative z-10">Send Message</span>
           </button>
-          {formStatus === 'success' && (
-            <div className="mt-4 p-4 rounded-xl bg-green-500/20 text-green-300 text-center" role="alert">
-              Your message has been sent successfully!
-            </div>
-          )}
-          {formStatus === 'error' && (
-            <div className="mt-4 p-4 rounded-xl bg-red-500/20 text-red-300 text-center" role="alert">
-              There was an error sending your message. Please try again.
-            </div>
-          )}
+
+          <div aria-live="polite" className="min-h-[2rem]">
+            {formStatus === 'success' && (
+              <div className="mt-4 p-4 rounded-xl bg-green-500/20 text-green-300 text-center" role="status">
+                Your message has been sent successfully!
+              </div>
+            )}
+            {formStatus === 'error' && (
+              <div className="mt-4 p-4 rounded-xl bg-red-500/20 text-red-300 text-center" role="alert">
+                There was an error sending your message. Please try again.
+              </div>
+            )}
+          </div>
         </form>
       </div>
     </div>
@@ -746,28 +799,27 @@ const Contact = ({ formData, handleInputChange, handleFormSubmit, formStatus, va
 const Footer = () => (
   <footer className="py-8 px-4 text-center text-gray-500 font-poppins leading-relaxed" role="contentinfo">
     <p>© {new Date().getFullYear()} {agencyData.name}. All rights reserved.</p>
-    <a href="#privacy" className="text-gray-400 hover:underline text-sm mt-1 inline-block">Privacy Notice</a>
   </footer>
 );
 
+// -------------------- Main App --------------------
 const App = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
   const [formStatus, setFormStatus] = useState(null);
   const [showStickyCta, setShowStickyCta] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [validationErrors, setValidationErrors] = useState({});
   const [wordCount, setWordCount] = useState(0);
-
-  // Personalization via ?segment=
-  const [segment, setSegment] = useState(localStorage.getItem('segment') || null);
+  const [segment, setSegment] = useState(() => localStorage.getItem('segment') || null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const seg = params.get('segment');
     if (seg) {
-      setSegment(seg.toLowerCase());
-      localStorage.setItem('segment', seg.toLowerCase());
+      const lower = seg.toLowerCase();
+      setSegment(lower);
+      localStorage.setItem('segment', lower);
     }
   }, []);
 
@@ -780,44 +832,54 @@ const App = () => {
 
   const segmentedTestimonial = useMemo(() => {
     if (!segment) return agencyData.testimonials[0];
-    const match = agencyData.testimonials.find(t => t.industry.toLowerCase() === segment);
+    const match = agencyData.testimonials.find((t) => t.industry.toLowerCase() === segment);
     return match || agencyData.testimonials[0];
   }, [segment]);
 
-  // Validation function
-  const validateForm = (data) => {
+  // -------------------- Validation --------------------
+  const validateForm = useCallback((data) => {
     const errors = {};
-    if (!/^[a-zA-Z\s]*$/.test(data.name)) {
-      errors.name = 'Name can only contain letters and spaces.';
+    // allow letters, spaces, basic punctuation like - and '
+    if (!/^[a-zA-Z\s'-]+$/.test(data.name) || data.name.trim().length === 0) {
+      errors.name = 'Name can only contain letters, spaces, apostrophes and hyphens.';
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(data.email)) {
       errors.email = 'Please enter a valid email address.';
     }
-    const words = data.message.trim().split(/\s+/).filter(word => word.length > 0);
+    // Accept 10 digit local numbers (you could expand to E.164 if needed)
+    if (!/^\d{10}$/.test(data.phone)) {
+      errors.phone = 'Phone number must be exactly 10 digits.';
+    }
+    const words = data.message.trim().split(/\s+/).filter((w) => w.length > 0);
     if (words.length > 50) {
       errors.message = 'Message cannot exceed 50 words.';
     }
     return errors;
-  };
+  }, []);
 
-  const handleInputChange = (e) => {
+  // -------------------- Handlers --------------------
+  const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormData((d) => ({ ...d, [name]: value }));
 
-    // Real-time validation for name and email
-    const updatedData = { ...formData, [name]: value };
-    const errors = validateForm(updatedData);
-    setValidationErrors(prev => ({ ...prev, [name]: errors[name] }));
-
-    // Word count for message
+    // update word count quickly for UX
     if (name === 'message') {
-      const words = value.trim().split(/\s+/).filter(word => word.length > 0);
+      const words = value.trim().split(/\s+/).filter((w) => w.length > 0);
       setWordCount(words.length);
     }
-  };
 
-  const handleFormSubmit = async (e) => {
+    // real-time shallow validation per-field
+    setValidationErrors((prev) => {
+      const updated = { ...prev };
+      const partial = { ...formData, [name]: value };
+      const errs = validateForm(partial);
+      updated[name] = errs[name] || null;
+      return updated;
+    });
+  }, [formData, validateForm]);
+
+  const handleFormSubmit = useCallback(async (e) => {
     e.preventDefault();
     const errors = validateForm(formData);
     setValidationErrors(errors);
@@ -829,16 +891,18 @@ const App = () => {
 
     setFormStatus('loading');
     try {
+      // Simulate API call (replace with real API)
       await new Promise((r) => setTimeout(r, 800));
       setFormStatus('success');
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', message: '' });
       setWordCount(0);
+      // optionally fire analytics event here
     } catch (err) {
       setFormStatus('error');
     }
-  };
+  }, [formData, validateForm]);
 
-  // Scrollspy & Sticky CTA Logic
+  // -------------------- Scrollspy & Sticky CTA --------------------
   useEffect(() => {
     const sections = ['hero', 'services', 'portfolio', 'pricing', 'faq', 'contact'];
     const observer = new IntersectionObserver(
@@ -855,7 +919,8 @@ const App = () => {
         });
       },
       {
-        rootMargin: '-50% 0px -50% 0px',
+        root: null,
+        rootMargin: '-40% 0px -40% 0px',
         threshold: 0,
       }
     );
@@ -869,36 +934,33 @@ const App = () => {
       const hero = document.getElementById('hero');
       const scrollPosition = window.scrollY;
       const heroHeight = hero?.offsetHeight || 0;
-      if (scrollPosition > heroHeight / 2 && activeSection !== 'contact') {
-        setShowStickyCta(true);
-      } else {
-        setShowStickyCta(false);
-      }
+      if (scrollPosition > heroHeight / 2 && activeSection !== 'contact') setShowStickyCta(true);
+      else setShowStickyCta(false);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', handleScroll);
       observer.disconnect();
     };
   }, [activeSection]);
 
-
-  // Logic for Esc key to close mobile nav
   useEffect(() => {
     const handleEscape = (e) => {
-      if (e.key === 'Escape' && isNavOpen) {
-        setIsNavOpen(false);
-      }
+      if (e.key === 'Escape' && isNavOpen) setIsNavOpen(false);
     };
     document.addEventListener('keydown', handleEscape);
     return () => document.removeEventListener('keydown', handleEscape);
-  }, [isNavOpen, setIsNavOpen]);
+  }, [isNavOpen]);
 
   const resetSegment = () => {
     setSegment(null);
     localStorage.removeItem('segment');
-    window.location.search = '';
+    try {
+      history.replaceState(null, '', window.location.pathname);
+    } catch (e) {
+      window.location.search = '';
+    }
   };
 
   return (
@@ -910,25 +972,16 @@ const App = () => {
         .font-inter { font-family: 'Inter', sans-serif; }
         .leading-tight { line-height: 1.25; }
         .leading-relaxed { line-height: 1.625; }
-        .bg-gradient-to-r.from-blue-400.to-purple-600 { background: linear-gradient(to right, var(--tw-gradient-from), var(--tw-gradient-to)); }
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         .animate-fade-in-down { animation: fadeInDown 0.8s ease-out; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade-in-up { animation: fadeInUp 0.8s ease-out; }
         :focus-visible { outline: 2px solid #60a5fa; outline-offset: 2px; }
       `}</style>
 
       {/* JSON-LD Script for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
       {/* Skip link */}
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 bg-white text-black px-3 py-2 rounded z-[100]"
-      >
+      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 bg-white text-black px-3 py-2 rounded z-[100]">
         Skip to content
       </a>
 
@@ -936,8 +989,7 @@ const App = () => {
 
       {/* Sticky Mobile CTA */}
       <div className="md:hidden">
-        <div className={`fixed bottom-4 inset-x-4 z-40 transition-all duration-300 ${showStickyCta ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'}`}
-          aria-live="polite">
+        <div className={`fixed bottom-4 inset-x-4 z-40 transition-all duration-300 ${showStickyCta ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'}`} aria-live="polite">
           <a
             href="#contact"
             className="block rounded-full bg-blue-600 text-white text-center py-3 font-semibold shadow-lg shadow-blue-500/30 hover:bg-blue-500 transition-colors"
@@ -947,20 +999,6 @@ const App = () => {
           </a>
         </div>
       </div>
-      
-      {/* Scrollspy Nav for Desktop (not implemented in this version)
-      <nav className="fixed left-4 top-1/2 -translate-y-1/2 hidden lg:block">
-        <ul className="space-y-2">
-          {['hero', 'services', 'portfolio', 'pricing', 'faq', 'contact'].map(id => (
-            <li key={id}>
-              <a href={`#${id}`} className={`block w-2 h-2 rounded-full transition-all ${activeSection === id ? 'bg-blue-400 w-3 h-3' : 'bg-gray-600 hover:bg-gray-400'}`}>
-                <span className="sr-only">Go to {id}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-      */}
 
       <main id="main">
         {segment && (
@@ -973,6 +1011,7 @@ const App = () => {
             </span>
           </div>
         )}
+
         <Hero segment={segment} testimonial={segmentedTestimonial} />
 
         {/* Trust Logos */}
@@ -993,7 +1032,6 @@ const App = () => {
         <CaseStudies orderedPortfolio={orderedPortfolio} />
         <Pricing />
 
-        {/* FAQ - Heading is now part of the narrative spine */}
         <section id="faq" className="py-20 px-8">
           <div className="max-w-4xl mx-auto font-poppins">
             <h2 className="text-4xl font-bold text-center mb-16 leading-tight">Answers to your questions</h2>
@@ -1009,10 +1047,7 @@ const App = () => {
           <div className="max-w-4xl mx-auto text-center bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-10">
             <h3 className="text-3xl font-extrabold leading-tight">Ready to outperform your competitors?</h3>
             <p className="mt-2 text-white/90 leading-relaxed">Book a free 20-minute strategy session. No obligation.</p>
-            <a
-              href="#contact"
-              className="mt-6 inline-block px-8 py-3 rounded-full bg-white text-gray-900 font-semibold hover:bg-gray-100 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-            >
+            <a href="#contact" className="mt-6 inline-block px-8 py-3 rounded-full bg-white text-gray-900 font-semibold hover:bg-gray-100 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
               Get Your Free Strategy Session
             </a>
           </div>
@@ -1022,18 +1057,23 @@ const App = () => {
         <Contact formData={formData} handleInputChange={handleInputChange} handleFormSubmit={handleFormSubmit} formStatus={formStatus} validationErrors={validationErrors} wordCount={wordCount} />
       </main>
 
-      {/* Persistent Help button for mobile/desktop */}
+      {/* Persistent Help button for mobile/desktop (WhatsApp) */}
       <a
-        href="#faq"
-        className="fixed bottom-6 right-6 p-4 rounded-full bg-blue-600 text-white shadow-lg z-40 lg:hidden"
-        aria-label="Go to FAQ and Contact sections"
-        accessKey="h"
+        href="https://wa.me/919625262295"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-24 left-6 p-4 rounded-full bg-[#25d366] text-white shadow-lg z-40 lg:hidden"
+        aria-label="Chat with us on WhatsApp"
+        accessKey="w"
       >
-        <Info size={24} />
+        <svg aria-hidden="true" className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12.04 2.1c-5.46 0-9.9 4.45-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2.1 21.9l5.05-1.31c1.45.79 3.09 1.21 4.89 1.21 5.46 0 9.9-4.45 9.9-9.9-0.01-5.46-4.44-9.9-9.9-9.9zm0 18.01c-1.48 0-2.93-0.42-4.14-1.2l-0.29-0.17-3.05.79 0.8-2.95-0.19-0.3c-0.87-1.4-1.33-3-1.33-4.58 0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27 0.86 5.82 2.41s2.41 3.62 2.41 5.82c0 4.54-3.7 8.24-8.24 8.24zm4.52-6.16c-0.25-0.12-1.47-0.72-1.69-0.81-0.23-0.09-0.4-.13-0.57 0.13-0.17 0.25-0.66 0.81-0.8 0.97-0.15 0.17-0.3 0.19-0.56 0.07-0.26-0.13-1.1-0.41-2.09-1.29-0.78-0.68-1.31-1.52-1.46-1.77-0.15-0.25-0.01-0.39 0.11-0.4c0.11-0.01 0.25-0.04 0.38-0.04s0.27-0.09 0.41-0.25c0.14-0.17 0.45-0.43 0.61-0.65 0.17-0.22 0.24-0.37 0.24-0.52s-0.01-0.26-0.09-0.39c-0.08-0.12-0.57-1.36-0.78-1.86-0.2-0.5-0.41-0.42-0.56-0.43-0.14-0.01-0.31-0.01-0.47-0.01s-0.41 0.06-0.62 0.28c-0.21 0.23-0.8 0.78-0.8 1.99s0.82 2.31 0.94 2.47c0.12 0.17 1.6 2.57 3.88 3.52 0.53 0.21 0.95 0.34 1.27 0.43 0.47 0.13 0.9 0.12 1.24 0.08 0.38-0.05 1.15-0.47 1.3-0.92 0.14-0.44 0.14-0.81 0.1-0.88-0.05-0.07-0.15-0.11-0.3-0.18z" />
+        </svg>
       </a>
-      
+
       <Footer />
     </div>
   );
 };
+
 export default App;
