@@ -64,7 +64,7 @@ const agencyData = {
       title: 'E-Commerce Platform Rebrand',
       description:
         'A complete brand refresh and digital strategy for a global e-commerce client, resulting in a 250% increase in online sales.',
-      imageUrl: 'https://placehold.co/800x600/1e293b/d1d5db?text=Project+1',
+      imageUrl: '/assets/portfolio/ecommerce-rebrand.png',
       industry: 'E-Commerce',
       metrics: '+250% Sales, <1.8s LCP, 30% More Traffic',
     },
@@ -73,7 +73,7 @@ const agencyData = {
       title: 'SaaS Marketing Campaign',
       description:
         'A targeted multi-channel campaign for a B2B SaaS company that delivered a 40% growth in qualified leads and boosted brand awareness.',
-      imageUrl: 'https://placehold.co/800x600/1e293b/d1d5db?text=Project+2',
+      imageUrl: '/assets/portfolio/saas-campaign.png',
       industry: 'SaaS',
       metrics: '+40% MQLs, <2.0s LCP, 2x Lead-to-Sale Conversion',
     },
@@ -82,7 +82,7 @@ const agencyData = {
       title: 'Mobile App Launch Strategy',
       description:
         'Developed and executed a successful launch strategy for a new wellness app, gaining over 100K downloads in the first month.',
-      imageUrl: 'https://placehold.co/800x600/1e293b/d1d5db?text=Project+3',
+      imageUrl: '/assets/portfolio/project-3.png',
       industry: 'Fintech',
       metrics: '100K Downloads, 95% User Retention, <0.1 CLS',
     },
@@ -306,6 +306,11 @@ const MobileMenu = ({ isNavOpen, setIsNavOpen, navRef, toggleButtonRef, headerHe
     toggleButtonRef.current?.focus();
   }, [setIsNavOpen, toggleButtonRef]);
 
+  const handleHomeClick = () => {
+    handleClose();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   useEffect(() => {
     const node = navRef.current;
     if (!node) return;
@@ -357,12 +362,12 @@ const MobileMenu = ({ isNavOpen, setIsNavOpen, navRef, toggleButtonRef, headerHe
       aria-hidden={!isNavOpen}
     >
       <ul className="flex flex-col items-center py-12 space-y-2" role="menu" aria-label="Mobile">
-        {['home', 'services', 'portfolio', 'pricing', 'faq', 'contact'].map((section) => (
+        {['home', 'services', 'portfolio', 'pricing', 'faq'].map((section) => (
           <li key={section}>
             <a
-              href={`#${section === 'home' ? 'hero' : section}`}
+              href={section === 'home' ? '#' : `#${section}`}
               className="block w-full text-center px-6 py-3 text-2xl font-semibold text-gray-300 rounded-xl transition-all duration-200 hover:bg-white/10 hover:text-white active:bg-white/15 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-              onClick={handleClose}
+              onClick={section === 'home' ? handleHomeClick : handleClose}
               role="menuitem"
             >
               {section === 'home' ? 'Home' : section.charAt(0).toUpperCase() + section.slice(1)}
@@ -397,18 +402,18 @@ const Header = ({ isNavOpen, setIsNavOpen }) => {
     }
   }, []);
 
-  const handleBrandClick = () => {
+  const handleBrandClick = (e) => {
+    e.preventDefault();
     setIsNavOpen(false);
-    // Smooth scroll to the top of the page (hero section)
-    document.getElementById('hero').scrollIntoView({ behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <header ref={headerRef} className="fixed top-0 z-50 bg-gray-950 bg-opacity-70 backdrop-blur-md p-4 w-full" role="banner">
       <nav className="flex items-center justify-between max-w-7xl mx-auto font-poppins" aria-label="Primary">
         <a
-          href="#hero"
-          onClick={isNavOpen ? handleBrandClick : undefined}
+          href="/"
+          onClick={handleBrandClick}
           className="flex items-center space-x-2 text-xl font-bold focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded-md p-2 -m-2"
         >
           <Sparkles className="w-8 h-8 text-blue-400" />
@@ -1036,10 +1041,10 @@ const App = () => {
           <div className="max-w-6xl mx-auto opacity-80">
             <p className="text-center text-xs uppercase tracking-widest text-gray-400 mb-4">Trusted by teams at</p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 items-center justify-items-center">
-              <img src="https://placehold.co/100x40/4b5563/ffffff?text=Logo+1" alt="Client logo 1" className="h-6 w-auto" loading="lazy" />
-              <img src="https://placehold.co/100x40/4b5563/ffffff?text=Logo+2" alt="Client logo 2" className="h-6 w-auto" loading="lazy" />
-              <img src="https://placehold.co/100x40/4b5563/ffffff?text=Logo+3" alt="Client logo 3" className="h-6 w-auto" loading="lazy" />
-              <img src="https://placehold.co/100x40/4b5563/ffffff?text=Logo+4" alt="Client logo 4" className="h-6 w-auto" loading="lazy" />
+              <img src="/assets/logos/logo-client1.svg" alt="Client logo 1" className="h-6 w-auto" loading="lazy" />
+              <img src="/assets/logos/logo-client2.svg" alt="Client logo 2" className="h-6 w-auto" loading="lazy" />
+              <img src="/assets/logos/logo-client3.svg" alt="Client logo 3" className="h-6 w-auto" loading="lazy" />
+              <img src="/assets/logos/logo-client4.svg" alt="Client logo 4" className="h-6 w-auto" loading="lazy" />
             </div>
           </div>
         </section>
