@@ -20,10 +20,10 @@ export default async function handler(req, res) {
     // 6. Get the form data from the incoming request. The `req.body` contains the form submission.
     const { name, email, phone, message } = req.body;
 
-    // 7. --- IMPORTANT: Backend Validation ---
-    // Always validate data on the backend, never just trust the frontend.
-    if (!name || !email || !phone || !message) {
-      return res.status(400).json({ message: 'All fields are required.' });
+    // 7. --- IMPORTANT: Backend Validation (UPDATED) ---
+    // The message field is now optional. We only require name, email, and phone.
+    if (!name || !email || !phone) {
+      return res.status(400).json({ message: 'Name, email, and phone are required.' });
     }
     // You can add more specific validation here if you want
 
@@ -31,13 +31,13 @@ export default async function handler(req, res) {
     // The `sql` template tag automatically protects against SQL injection attacks.
     await sql`
       INSERT INTO contacts (name, email, phone, message)
-      VALUES (${name}, ${email}, ${phone}, ${message});
+      VALUES (${name}, ${email}, ${phone}, ${message || ''});
     `;
 
     // 9. --- IMPORTANT: Send yourself an email notification ---
     await resend.emails.send({
       from: 'onboarding@resend.dev', // This is required by Resend's free plan for unverified domains
-      to: 'keshavaggarwal1234@gmail.com', // <-- CHANGE THIS to your actual email address!
+      to: 'keshavaggarwal1234@gmail.com', // Your email address
       subject: `New Contact Form Lead: ${name}`,
       html: `
         <h1>New Lead from Digital Forge Website</h1>
@@ -48,7 +48,7 @@ export default async function handler(req, res) {
           <li><strong>Phone:</strong> ${phone}</li>
         </ul>
         <p><strong>Message:</strong></p>
-        <p>${message}</p>
+        <p>${message || 'No message provided.'}</p>
       `,
     });
 
