@@ -901,6 +901,7 @@ const App = () => {
     });
   }, [formData, validateForm]);
 
+  // THIS IS THE UPDATED FUNCTION
   const handleFormSubmit = useCallback(async (e) => {
     e.preventDefault();
     const errors = validateForm(formData);
@@ -913,13 +914,29 @@ const App = () => {
 
     setFormStatus('loading');
     try {
-      // Simulate API call (replace with real API)
-      await new Promise((r) => setTimeout(r, 800));
-      setFormStatus('success');
-      setFormData({ name: '', email: '', phone: '', message: '' });
-      setWordCount(0);
-      // optionally fire analytics event here
+      // This sends the form data to your backend API endpoint at /api/contact
+      const response = await fetch('/api/contact', {
+        method: 'POST', // Specifies the request method, matching our backend
+        headers: {
+          'Content-Type': 'application/json', // Tells the backend we're sending JSON data
+        },
+        body: JSON.stringify(formData), // Converts the form data from a JS object to a JSON string
+      });
+
+      // Check if the backend responded with a success status code (like 200)
+      if (response.ok) {
+        setFormStatus('success');
+        // Clear the form fields after successful submission
+        setFormData({ name: '', email: '', phone: '', message: '' });
+        setWordCount(0);
+      } else {
+        // Handle cases where the backend returned an error (e.g., validation failed)
+        console.error('Backend responded with an error:', await response.text());
+        setFormStatus('error');
+      }
     } catch (err) {
+      // Handle network errors (e.g., user is offline)
+      console.error('A network error occurred:', err);
       setFormStatus('error');
     }
   }, [formData, validateForm]);
