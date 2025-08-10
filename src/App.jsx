@@ -82,7 +82,7 @@ const agencyData = {
       title: 'Mobile App Launch Strategy',
       description:
         'Developed and executed a successful launch strategy for a new wellness app, gaining over 100K downloads in the first month.',
-      imageUrl: '/assets/portfolio/project-3.png',
+      imageUrl: '/assets/portfolio/app-launch.png',
       industry: 'Fintech',
       metrics: '100K Downloads, 95% User Retention, <0.1 CLS',
     },

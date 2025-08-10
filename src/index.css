@@ -4,3 +4,6 @@
   top: 0;
   z-index: 1000; /* Ensures the header is on top of other content */
 }
+.text-green-300 {
+    color: oklch(0.56 0.29 302.31);
+}
